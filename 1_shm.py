@@ -215,7 +215,7 @@ class model_NN():
 N = 1001; N_classes = 5;
 data_training = data(N,training=True)
 
-device = torch.device('cpu')
+
 
 X_training = torch.tensor(data_training[:,:freq], dtype=torch.float32, device=device)
 Y_training = torch.tensor(data_training[:,-1:], dtype=torch.long, device=device)
@@ -224,6 +224,8 @@ new_model = 1
 training = 1
 
 if training==1:
+    device = torch.device('cuda') # or 'cpu'
+    
     if new_model==1:
         net = MIONet(input_dim=freq, 
                  output_dim=N_classes, hidden_dim=50, 
@@ -242,10 +244,7 @@ if training==1:
         
 else:
     net = torch.load('shm2_stiffness.pth',map_location=torch.device('cpu'))
-    net.to(device)
-    model = model_NN(net,lr=1e-5)
-    training = model.train(1001, X_training, Y_training)
-    torch.save(net,'shm2_stiffness.pth')
+    device = torch.device('cpu') # For plotting use 'cpu'
     
 ## Accuracy
 data_acc = data(200,training=True)
