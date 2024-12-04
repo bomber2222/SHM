@@ -220,7 +220,7 @@ device = torch.device('cpu')
 X_training = torch.tensor(data_training[:,:freq], dtype=torch.float32, device=device)
 Y_training = torch.tensor(data_training[:,-1:], dtype=torch.long, device=device)
     
-new_model = 2
+new_model = 1
 training = 1
 
 if training==1:
