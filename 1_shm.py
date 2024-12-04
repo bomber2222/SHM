@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+
 """
 Created on Mon Nov 25 12:37:31 2024
 
@@ -102,8 +101,7 @@ def motion(h, training):
     
 def data(N, training):
     
-    h_list = np.random.randint(0,11,(N,1))/10
-    h_list = np.concatenate((h_list,np.random.uniform(0.4,1,(300,1))),axis=0)
+    h_list = np.random.uniform(0,1,(N,1))
     first_time = True
     
     for h in h_list:
@@ -173,11 +171,13 @@ class model_NN():
             
             print('epoch {:05d}, loss = {:10.4e}'.format(idx,loss))
         
-        plt.figure()
-        plt.plot(range(epochs),lossTracker)
-        plt.title('Training loss')
-        plt.xlabel('Epochs')
-        plt.grid()
+        fig,ax = plt.subplots()
+        ax.set_yscale('log')
+        ax.plot(range(epochs),lossTracker)
+        ax.set_title('Training loss')
+        ax.set_xlabel('Epochs')
+        ax.set_ylabel('Loss')
+        ax.grid()
         return 
     
     def test_accuracy(self, X_test, Y_test):
@@ -292,7 +292,3 @@ plt.xlabel('Time [s]')
 plt.ylabel('Displacement [m]')
 # plt.legend()
 plt.grid()
-
-
-    
-    
